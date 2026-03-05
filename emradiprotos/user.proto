@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+// Go package name
+option go_package = "../emradiprotos"; 
+
+message User {
+    optional string id = 1;
+    optional string email = 2;
+    optional string emailVisibility = 3;
+    optional bool verified = 4;
+    optional string name = 5;
+    optional string avatar = 6;
+    optional string created = 7;
+    optional string updated = 8;
+    repeated string roles = 9;
+    optional string status = 10;
+    optional string contactMethod = 11;
+    optional string contactAddress = 12;
+}

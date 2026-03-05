@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "crud.proto";
+import "collection.proto";
+import "incident.proto";
+import "user.proto";
+
+// Go package name
+option go_package = "../emradiprotos"; 
+
+message EmradiMessage {
+    Collection collection = 1;
+    Crud crud = 2;
+    oneof data {
+        string since = 3;
+        Incident incident = 4;
+        User user = 5;
+    }
+}
