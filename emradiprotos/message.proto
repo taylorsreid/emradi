@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+// Go package name
+option go_package = "../emradiprotos";
+
+import "createincident.proto";
+import "createincidentevent.proto";
+import "read.proto";
+import "updateincident.proto";
+
+message EmradiMessage {
+    oneof variant {
+        CreateIncident createIncident = 1;
+        CreateIncidentEvent createIncidentEvent = 2;
+        Read read = 3;
+        UpdateIncident updateIncident = 4;
+    }
+}
