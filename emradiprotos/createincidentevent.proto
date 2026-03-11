@@ -6,8 +6,8 @@ option go_package = "../emradiprotos";
 message CreateIncidentEvent {
     string id = 1;
     string description = 2;
-    optional string notes = 3;
-    optional string created = 4;
+    string created = 3;
+    optional string notes = 4;
     optional string createdBy = 5;
     optional string affectedUser = 6;
 }
