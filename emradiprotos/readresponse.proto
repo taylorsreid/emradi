@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+// Go package name
+option go_package = "../emradiprotos";
+
+import "maparray.proto";
+
+message ReadResponse {
+    repeated MapArray response = 1;
+}

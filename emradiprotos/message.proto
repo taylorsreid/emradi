@@ -5,14 +5,16 @@ option go_package = "../emradiprotos";
 
 import "createincident.proto";
 import "createincidentevent.proto";
-import "read.proto";
+import "readrequest.proto";
+import "readresponse.proto";
 import "updateincident.proto";
 
 message EmradiMessage {
     oneof variant {
         CreateIncident createIncident = 1;
         CreateIncidentEvent createIncidentEvent = 2;
-        Read read = 3;
-        UpdateIncident updateIncident = 4;
+        ReadRequest readRequest = 3;
+        ReadResponse readResponse = 4;
+        UpdateIncident updateIncident = 5;
     }
 }
