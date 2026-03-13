@@ -6,5 +6,5 @@ option go_package = "../emradiprotos";
 import "maparray.proto";
 
 message ReadResponse {
-    repeated MapArray response = 1;
+    bytes response = 1;
 }
