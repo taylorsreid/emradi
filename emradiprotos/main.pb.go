@@ -21,37 +21,30 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Request struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	Id    string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // uuid for the request
-	// Types that are valid to be assigned to Payload:
-	//
-	//	*Request_CreateUser
-	//	*Request_CreateIncident
-	//	*Request_CreateIncidentEvent
-	//	*Request_Read
-	//	*Request_UpdateUser
-	//	*Request_UpdateIncident
-	//	*Request_UpdateIncidentEvent
-	Payload       isRequest_Payload `protobuf_oneof:"payload"`
+type EmradiChunk struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Numerator     int32                  `protobuf:"varint,2,opt,name=numerator,proto3" json:"numerator,omitempty"`
+	Denominator   int32                  `protobuf:"varint,3,opt,name=denominator,proto3" json:"denominator,omitempty"`
+	Payload       []byte                 `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Request) Reset() {
-	*x = Request{}
+func (x *EmradiChunk) Reset() {
+	*x = EmradiChunk{}
 	mi := &file_main_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Request) String() string {
+func (x *EmradiChunk) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Request) ProtoMessage() {}
+func (*EmradiChunk) ProtoMessage() {}
 
-func (x *Request) ProtoReflect() protoreflect.Message {
+func (x *EmradiChunk) ProtoReflect() protoreflect.Message {
 	mi := &file_main_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -63,139 +56,43 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Request.ProtoReflect.Descriptor instead.
-func (*Request) Descriptor() ([]byte, []int) {
+// Deprecated: Use EmradiChunk.ProtoReflect.Descriptor instead.
+func (*EmradiChunk) Descriptor() ([]byte, []int) {
 	return file_main_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Request) GetId() string {
+func (x *EmradiChunk) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *Request) GetPayload() isRequest_Payload {
+func (x *EmradiChunk) GetNumerator() int32 {
+	if x != nil {
+		return x.Numerator
+	}
+	return 0
+}
+
+func (x *EmradiChunk) GetDenominator() int32 {
+	if x != nil {
+		return x.Denominator
+	}
+	return 0
+}
+
+func (x *EmradiChunk) GetPayload() []byte {
 	if x != nil {
 		return x.Payload
 	}
 	return nil
 }
 
-func (x *Request) GetCreateUser() *CreateUser {
-	if x != nil {
-		if x, ok := x.Payload.(*Request_CreateUser); ok {
-			return x.CreateUser
-		}
-	}
-	return nil
-}
-
-func (x *Request) GetCreateIncident() *CreateIncident {
-	if x != nil {
-		if x, ok := x.Payload.(*Request_CreateIncident); ok {
-			return x.CreateIncident
-		}
-	}
-	return nil
-}
-
-func (x *Request) GetCreateIncidentEvent() *CreateIncidentEvent {
-	if x != nil {
-		if x, ok := x.Payload.(*Request_CreateIncidentEvent); ok {
-			return x.CreateIncidentEvent
-		}
-	}
-	return nil
-}
-
-func (x *Request) GetRead() *Read {
-	if x != nil {
-		if x, ok := x.Payload.(*Request_Read); ok {
-			return x.Read
-		}
-	}
-	return nil
-}
-
-func (x *Request) GetUpdateUser() *UpdateUser {
-	if x != nil {
-		if x, ok := x.Payload.(*Request_UpdateUser); ok {
-			return x.UpdateUser
-		}
-	}
-	return nil
-}
-
-func (x *Request) GetUpdateIncident() *UpdateIncident {
-	if x != nil {
-		if x, ok := x.Payload.(*Request_UpdateIncident); ok {
-			return x.UpdateIncident
-		}
-	}
-	return nil
-}
-
-func (x *Request) GetUpdateIncidentEvent() *UpdateIncidentEvent {
-	if x != nil {
-		if x, ok := x.Payload.(*Request_UpdateIncidentEvent); ok {
-			return x.UpdateIncidentEvent
-		}
-	}
-	return nil
-}
-
-type isRequest_Payload interface {
-	isRequest_Payload()
-}
-
-type Request_CreateUser struct {
-	CreateUser *CreateUser `protobuf:"bytes,2,opt,name=createUser,proto3,oneof"`
-}
-
-type Request_CreateIncident struct {
-	CreateIncident *CreateIncident `protobuf:"bytes,3,opt,name=createIncident,proto3,oneof"`
-}
-
-type Request_CreateIncidentEvent struct {
-	CreateIncidentEvent *CreateIncidentEvent `protobuf:"bytes,4,opt,name=createIncidentEvent,proto3,oneof"`
-}
-
-type Request_Read struct {
-	Read *Read `protobuf:"bytes,5,opt,name=read,proto3,oneof"`
-}
-
-type Request_UpdateUser struct {
-	UpdateUser *UpdateUser `protobuf:"bytes,6,opt,name=updateUser,proto3,oneof"`
-}
-
-type Request_UpdateIncident struct {
-	UpdateIncident *UpdateIncident `protobuf:"bytes,7,opt,name=updateIncident,proto3,oneof"`
-}
-
-type Request_UpdateIncidentEvent struct {
-	UpdateIncidentEvent *UpdateIncidentEvent `protobuf:"bytes,8,opt,name=updateIncidentEvent,proto3,oneof"` // no delete yet, but we can add it later if needed
-}
-
-func (*Request_CreateUser) isRequest_Payload() {}
-
-func (*Request_CreateIncident) isRequest_Payload() {}
-
-func (*Request_CreateIncidentEvent) isRequest_Payload() {}
-
-func (*Request_Read) isRequest_Payload() {}
-
-func (*Request_UpdateUser) isRequest_Payload() {}
-
-func (*Request_UpdateIncident) isRequest_Payload() {}
-
-func (*Request_UpdateIncidentEvent) isRequest_Payload() {}
-
 type Response struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`                 // uuid for the response, corresponding to the request id
-	Status        int32                  `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`        // e.g. HTTP status code
-	Payload       *string                `protobuf:"bytes,3,opt,name=payload,proto3,oneof" json:"payload,omitempty"` // id for create, JSON for read, nil for update, or detailed error message on failure
+	Status        int32                  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`        // HTTP status code
+	Payload       *string                `protobuf:"bytes,2,opt,name=payload,proto3,oneof" json:"payload,omitempty"` // id for create, JSON for read, nil for update, or detailed error message on failure
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -230,13 +127,6 @@ func (*Response) Descriptor() ([]byte, []int) {
 	return file_main_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Response) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
 func (x *Response) GetStatus() int32 {
 	if x != nil {
 		return x.Status
@@ -251,31 +141,37 @@ func (x *Response) GetPayload() string {
 	return ""
 }
 
-type EmradiMessage struct {
+type Payload struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Types that are valid to be assigned to Payload:
 	//
-	//	*EmradiMessage_Request
-	//	*EmradiMessage_Response
-	Payload       isEmradiMessage_Payload `protobuf_oneof:"payload"`
+	//	*Payload_Response
+	//	*Payload_CreateUser
+	//	*Payload_CreateIncident
+	//	*Payload_CreateIncidentEvent
+	//	*Payload_Read
+	//	*Payload_UpdateUser
+	//	*Payload_UpdateIncident
+	//	*Payload_UpdateIncidentEvent
+	Payload       isPayload_Payload `protobuf_oneof:"payload"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *EmradiMessage) Reset() {
-	*x = EmradiMessage{}
+func (x *Payload) Reset() {
+	*x = Payload{}
 	mi := &file_main_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *EmradiMessage) String() string {
+func (x *Payload) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*EmradiMessage) ProtoMessage() {}
+func (*Payload) ProtoMessage() {}
 
-func (x *EmradiMessage) ProtoReflect() protoreflect.Message {
+func (x *Payload) ProtoReflect() protoreflect.Message {
 	mi := &file_main_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -287,51 +183,141 @@ func (x *EmradiMessage) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use EmradiMessage.ProtoReflect.Descriptor instead.
-func (*EmradiMessage) Descriptor() ([]byte, []int) {
+// Deprecated: Use Payload.ProtoReflect.Descriptor instead.
+func (*Payload) Descriptor() ([]byte, []int) {
 	return file_main_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *EmradiMessage) GetPayload() isEmradiMessage_Payload {
+func (x *Payload) GetPayload() isPayload_Payload {
 	if x != nil {
 		return x.Payload
 	}
 	return nil
 }
 
-func (x *EmradiMessage) GetRequest() *Request {
+func (x *Payload) GetResponse() *Response {
 	if x != nil {
-		if x, ok := x.Payload.(*EmradiMessage_Request); ok {
-			return x.Request
-		}
-	}
-	return nil
-}
-
-func (x *EmradiMessage) GetResponse() *Response {
-	if x != nil {
-		if x, ok := x.Payload.(*EmradiMessage_Response); ok {
+		if x, ok := x.Payload.(*Payload_Response); ok {
 			return x.Response
 		}
 	}
 	return nil
 }
 
-type isEmradiMessage_Payload interface {
-	isEmradiMessage_Payload()
+func (x *Payload) GetCreateUser() *CreateUser {
+	if x != nil {
+		if x, ok := x.Payload.(*Payload_CreateUser); ok {
+			return x.CreateUser
+		}
+	}
+	return nil
 }
 
-type EmradiMessage_Request struct {
-	Request *Request `protobuf:"bytes,1,opt,name=request,proto3,oneof"`
+func (x *Payload) GetCreateIncident() *CreateIncident {
+	if x != nil {
+		if x, ok := x.Payload.(*Payload_CreateIncident); ok {
+			return x.CreateIncident
+		}
+	}
+	return nil
 }
 
-type EmradiMessage_Response struct {
-	Response *Response `protobuf:"bytes,2,opt,name=response,proto3,oneof"`
+func (x *Payload) GetCreateIncidentEvent() *CreateIncidentEvent {
+	if x != nil {
+		if x, ok := x.Payload.(*Payload_CreateIncidentEvent); ok {
+			return x.CreateIncidentEvent
+		}
+	}
+	return nil
 }
 
-func (*EmradiMessage_Request) isEmradiMessage_Payload() {}
+func (x *Payload) GetRead() *Read {
+	if x != nil {
+		if x, ok := x.Payload.(*Payload_Read); ok {
+			return x.Read
+		}
+	}
+	return nil
+}
 
-func (*EmradiMessage_Response) isEmradiMessage_Payload() {}
+func (x *Payload) GetUpdateUser() *UpdateUser {
+	if x != nil {
+		if x, ok := x.Payload.(*Payload_UpdateUser); ok {
+			return x.UpdateUser
+		}
+	}
+	return nil
+}
+
+func (x *Payload) GetUpdateIncident() *UpdateIncident {
+	if x != nil {
+		if x, ok := x.Payload.(*Payload_UpdateIncident); ok {
+			return x.UpdateIncident
+		}
+	}
+	return nil
+}
+
+func (x *Payload) GetUpdateIncidentEvent() *UpdateIncidentEvent {
+	if x != nil {
+		if x, ok := x.Payload.(*Payload_UpdateIncidentEvent); ok {
+			return x.UpdateIncidentEvent
+		}
+	}
+	return nil
+}
+
+type isPayload_Payload interface {
+	isPayload_Payload()
+}
+
+type Payload_Response struct {
+	Response *Response `protobuf:"bytes,1,opt,name=response,proto3,oneof"`
+}
+
+type Payload_CreateUser struct {
+	CreateUser *CreateUser `protobuf:"bytes,2,opt,name=createUser,proto3,oneof"`
+}
+
+type Payload_CreateIncident struct {
+	CreateIncident *CreateIncident `protobuf:"bytes,3,opt,name=createIncident,proto3,oneof"`
+}
+
+type Payload_CreateIncidentEvent struct {
+	CreateIncidentEvent *CreateIncidentEvent `protobuf:"bytes,4,opt,name=createIncidentEvent,proto3,oneof"`
+}
+
+type Payload_Read struct {
+	Read *Read `protobuf:"bytes,5,opt,name=read,proto3,oneof"`
+}
+
+type Payload_UpdateUser struct {
+	UpdateUser *UpdateUser `protobuf:"bytes,6,opt,name=updateUser,proto3,oneof"`
+}
+
+type Payload_UpdateIncident struct {
+	UpdateIncident *UpdateIncident `protobuf:"bytes,7,opt,name=updateIncident,proto3,oneof"`
+}
+
+type Payload_UpdateIncidentEvent struct {
+	UpdateIncidentEvent *UpdateIncidentEvent `protobuf:"bytes,8,opt,name=updateIncidentEvent,proto3,oneof"` // no delete yet, but we can add it later if needed
+}
+
+func (*Payload_Response) isPayload_Payload() {}
+
+func (*Payload_CreateUser) isPayload_Payload() {}
+
+func (*Payload_CreateIncident) isPayload_Payload() {}
+
+func (*Payload_CreateIncidentEvent) isPayload_Payload() {}
+
+func (*Payload_Read) isPayload_Payload() {}
+
+func (*Payload_UpdateUser) isPayload_Payload() {}
+
+func (*Payload_UpdateIncident) isPayload_Payload() {}
+
+func (*Payload_UpdateIncidentEvent) isPayload_Payload() {}
 
 var File_main_proto protoreflect.FileDescriptor
 
@@ -340,9 +326,19 @@ const file_main_proto_rawDesc = "" +
 	"\n" +
 	"main.proto\x1a\n" +
 	"user.proto\x1a\x0eincident.proto\x1a\x13incidentevent.proto\x1a\n" +
-	"read.proto\"\xa9\x03\n" +
-	"\aRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12-\n" +
+	"read.proto\"w\n" +
+	"\vEmradiChunk\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1c\n" +
+	"\tnumerator\x18\x02 \x01(\x05R\tnumerator\x12 \n" +
+	"\vdenominator\x18\x03 \x01(\x05R\vdenominator\x12\x18\n" +
+	"\apayload\x18\x04 \x01(\fR\apayload\"M\n" +
+	"\bResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\x05R\x06status\x12\x1d\n" +
+	"\apayload\x18\x02 \x01(\tH\x00R\apayload\x88\x01\x01B\n" +
+	"\n" +
+	"\b_payload\"\xc2\x03\n" +
+	"\aPayload\x12'\n" +
+	"\bresponse\x18\x01 \x01(\v2\t.ResponseH\x00R\bresponse\x12-\n" +
 	"\n" +
 	"createUser\x18\x02 \x01(\v2\v.CreateUserH\x00R\n" +
 	"createUser\x129\n" +
@@ -354,16 +350,6 @@ const file_main_proto_rawDesc = "" +
 	"updateUser\x129\n" +
 	"\x0eupdateIncident\x18\a \x01(\v2\x0f.UpdateIncidentH\x00R\x0eupdateIncident\x12H\n" +
 	"\x13updateIncidentEvent\x18\b \x01(\v2\x14.UpdateIncidentEventH\x00R\x13updateIncidentEventB\t\n" +
-	"\apayload\"]\n" +
-	"\bResponse\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\x05R\x06status\x12\x1d\n" +
-	"\apayload\x18\x03 \x01(\tH\x00R\apayload\x88\x01\x01B\n" +
-	"\n" +
-	"\b_payload\"i\n" +
-	"\rEmradiMessage\x12$\n" +
-	"\arequest\x18\x01 \x01(\v2\b.RequestH\x00R\arequest\x12'\n" +
-	"\bresponse\x18\x02 \x01(\v2\t.ResponseH\x00R\bresponseB\t\n" +
 	"\apayloadB\x11Z\x0f../emradiprotosb\x06proto3"
 
 var (
@@ -380,9 +366,9 @@ func file_main_proto_rawDescGZIP() []byte {
 
 var file_main_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_main_proto_goTypes = []any{
-	(*Request)(nil),             // 0: Request
+	(*EmradiChunk)(nil),         // 0: EmradiChunk
 	(*Response)(nil),            // 1: Response
-	(*EmradiMessage)(nil),       // 2: EmradiMessage
+	(*Payload)(nil),             // 2: Payload
 	(*CreateUser)(nil),          // 3: CreateUser
 	(*CreateIncident)(nil),      // 4: CreateIncident
 	(*CreateIncidentEvent)(nil), // 5: CreateIncidentEvent
@@ -392,20 +378,19 @@ var file_main_proto_goTypes = []any{
 	(*UpdateIncidentEvent)(nil), // 9: UpdateIncidentEvent
 }
 var file_main_proto_depIdxs = []int32{
-	3, // 0: Request.createUser:type_name -> CreateUser
-	4, // 1: Request.createIncident:type_name -> CreateIncident
-	5, // 2: Request.createIncidentEvent:type_name -> CreateIncidentEvent
-	6, // 3: Request.read:type_name -> Read
-	7, // 4: Request.updateUser:type_name -> UpdateUser
-	8, // 5: Request.updateIncident:type_name -> UpdateIncident
-	9, // 6: Request.updateIncidentEvent:type_name -> UpdateIncidentEvent
-	0, // 7: EmradiMessage.request:type_name -> Request
-	1, // 8: EmradiMessage.response:type_name -> Response
-	9, // [9:9] is the sub-list for method output_type
-	9, // [9:9] is the sub-list for method input_type
-	9, // [9:9] is the sub-list for extension type_name
-	9, // [9:9] is the sub-list for extension extendee
-	0, // [0:9] is the sub-list for field type_name
+	1, // 0: Payload.response:type_name -> Response
+	3, // 1: Payload.createUser:type_name -> CreateUser
+	4, // 2: Payload.createIncident:type_name -> CreateIncident
+	5, // 3: Payload.createIncidentEvent:type_name -> CreateIncidentEvent
+	6, // 4: Payload.read:type_name -> Read
+	7, // 5: Payload.updateUser:type_name -> UpdateUser
+	8, // 6: Payload.updateIncident:type_name -> UpdateIncident
+	9, // 7: Payload.updateIncidentEvent:type_name -> UpdateIncidentEvent
+	8, // [8:8] is the sub-list for method output_type
+	8, // [8:8] is the sub-list for method input_type
+	8, // [8:8] is the sub-list for extension type_name
+	8, // [8:8] is the sub-list for extension extendee
+	0, // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_main_proto_init() }
@@ -417,19 +402,16 @@ func file_main_proto_init() {
 	file_incident_proto_init()
 	file_incidentevent_proto_init()
 	file_read_proto_init()
-	file_main_proto_msgTypes[0].OneofWrappers = []any{
-		(*Request_CreateUser)(nil),
-		(*Request_CreateIncident)(nil),
-		(*Request_CreateIncidentEvent)(nil),
-		(*Request_Read)(nil),
-		(*Request_UpdateUser)(nil),
-		(*Request_UpdateIncident)(nil),
-		(*Request_UpdateIncidentEvent)(nil),
-	}
 	file_main_proto_msgTypes[1].OneofWrappers = []any{}
 	file_main_proto_msgTypes[2].OneofWrappers = []any{
-		(*EmradiMessage_Request)(nil),
-		(*EmradiMessage_Response)(nil),
+		(*Payload_Response)(nil),
+		(*Payload_CreateUser)(nil),
+		(*Payload_CreateIncident)(nil),
+		(*Payload_CreateIncidentEvent)(nil),
+		(*Payload_Read)(nil),
+		(*Payload_UpdateUser)(nil),
+		(*Payload_UpdateIncident)(nil),
+		(*Payload_UpdateIncidentEvent)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
