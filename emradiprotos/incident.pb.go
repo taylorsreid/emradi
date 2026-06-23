@@ -25,8 +25,8 @@ type CreateIncident struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	IncidentType  string                 `protobuf:"bytes,2,opt,name=incidentType,proto3" json:"incidentType,omitempty"`
-	Latitude      *float32               `protobuf:"fixed32,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
-	Longitude     *float32               `protobuf:"fixed32,4,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,4,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
 	Address       *string                `protobuf:"bytes,5,opt,name=address,proto3,oneof" json:"address,omitempty"`
 	CreatedBy     string                 `protobuf:"bytes,6,opt,name=createdBy,proto3" json:"createdBy,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -77,14 +77,14 @@ func (x *CreateIncident) GetIncidentType() string {
 	return ""
 }
 
-func (x *CreateIncident) GetLatitude() float32 {
+func (x *CreateIncident) GetLatitude() float64 {
 	if x != nil && x.Latitude != nil {
 		return *x.Latitude
 	}
 	return 0
 }
 
-func (x *CreateIncident) GetLongitude() float32 {
+func (x *CreateIncident) GetLongitude() float64 {
 	if x != nil && x.Longitude != nil {
 		return *x.Longitude
 	}
@@ -109,8 +109,8 @@ type UpdateIncident struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	IncidentType  *string                `protobuf:"bytes,2,opt,name=incidentType,proto3,oneof" json:"incidentType,omitempty"`
-	Latitude      *float32               `protobuf:"fixed32,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
-	Longitude     *float32               `protobuf:"fixed32,4,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,4,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
 	Address       *string                `protobuf:"bytes,5,opt,name=address,proto3,oneof" json:"address,omitempty"`
 	ClosedAt      *uint64                `protobuf:"varint,6,opt,name=closedAt,proto3,oneof" json:"closedAt,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -161,14 +161,14 @@ func (x *UpdateIncident) GetIncidentType() string {
 	return ""
 }
 
-func (x *UpdateIncident) GetLatitude() float32 {
+func (x *UpdateIncident) GetLatitude() float64 {
 	if x != nil && x.Latitude != nil {
 		return *x.Latitude
 	}
 	return 0
 }
 
-func (x *UpdateIncident) GetLongitude() float32 {
+func (x *UpdateIncident) GetLongitude() float64 {
 	if x != nil && x.Longitude != nil {
 		return *x.Longitude
 	}
@@ -197,8 +197,8 @@ const file_incident_proto_rawDesc = "" +
 	"\x0eCreateIncident\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\"\n" +
 	"\fincidentType\x18\x02 \x01(\tR\fincidentType\x12\x1f\n" +
-	"\blatitude\x18\x03 \x01(\x02H\x00R\blatitude\x88\x01\x01\x12!\n" +
-	"\tlongitude\x18\x04 \x01(\x02H\x01R\tlongitude\x88\x01\x01\x12\x1d\n" +
+	"\blatitude\x18\x03 \x01(\x01H\x00R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\x04 \x01(\x01H\x01R\tlongitude\x88\x01\x01\x12\x1d\n" +
 	"\aaddress\x18\x05 \x01(\tH\x02R\aaddress\x88\x01\x01\x12\x1c\n" +
 	"\tcreatedBy\x18\x06 \x01(\tR\tcreatedByB\v\n" +
 	"\t_latitudeB\f\n" +
@@ -209,8 +209,8 @@ const file_incident_proto_rawDesc = "" +
 	"\x0eUpdateIncident\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12'\n" +
 	"\fincidentType\x18\x02 \x01(\tH\x00R\fincidentType\x88\x01\x01\x12\x1f\n" +
-	"\blatitude\x18\x03 \x01(\x02H\x01R\blatitude\x88\x01\x01\x12!\n" +
-	"\tlongitude\x18\x04 \x01(\x02H\x02R\tlongitude\x88\x01\x01\x12\x1d\n" +
+	"\blatitude\x18\x03 \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\x04 \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1d\n" +
 	"\aaddress\x18\x05 \x01(\tH\x03R\aaddress\x88\x01\x01\x12\x1f\n" +
 	"\bclosedAt\x18\x06 \x01(\x04H\x04R\bclosedAt\x88\x01\x01B\x0f\n" +
 	"\r_incidentTypeB\v\n" +
