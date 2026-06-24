@@ -7,7 +7,7 @@ message CreateIncidentEvent {
     optional uint32 id = 1;
     string title = 2;
     optional string details = 3;
-    string createdBy = 4;
+    optional string createdBy = 4;
     repeated uint32 affectedUsers = 5;
 }
 
@@ -15,6 +15,6 @@ message UpdateIncidentEvent {
     uint32 id = 1;
     optional string title = 2;
     optional string details = 3;
-    string createdBy = 4;
+    optional string createdBy = 4;
     repeated uint32 affectedUsers = 5;
 }

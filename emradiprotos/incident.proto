@@ -9,7 +9,7 @@ message CreateIncident {
     optional double latitude = 3;
     optional double longitude = 4;
     optional string address = 5;
-    string createdBy = 6;
+    optional string createdBy = 6;
 }
 
 message UpdateIncident {

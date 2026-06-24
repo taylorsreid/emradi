@@ -26,7 +26,7 @@ type CreateIncidentEvent struct {
 	Id            *uint32                `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
 	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
 	Details       *string                `protobuf:"bytes,3,opt,name=details,proto3,oneof" json:"details,omitempty"`
-	CreatedBy     string                 `protobuf:"bytes,4,opt,name=createdBy,proto3" json:"createdBy,omitempty"`
+	CreatedBy     *string                `protobuf:"bytes,4,opt,name=createdBy,proto3,oneof" json:"createdBy,omitempty"`
 	AffectedUsers []uint32               `protobuf:"varint,5,rep,packed,name=affectedUsers,proto3" json:"affectedUsers,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -84,8 +84,8 @@ func (x *CreateIncidentEvent) GetDetails() string {
 }
 
 func (x *CreateIncidentEvent) GetCreatedBy() string {
-	if x != nil {
-		return x.CreatedBy
+	if x != nil && x.CreatedBy != nil {
+		return *x.CreatedBy
 	}
 	return ""
 }
@@ -102,7 +102,7 @@ type UpdateIncidentEvent struct {
 	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Title         *string                `protobuf:"bytes,2,opt,name=title,proto3,oneof" json:"title,omitempty"`
 	Details       *string                `protobuf:"bytes,3,opt,name=details,proto3,oneof" json:"details,omitempty"`
-	CreatedBy     string                 `protobuf:"bytes,4,opt,name=createdBy,proto3" json:"createdBy,omitempty"`
+	CreatedBy     *string                `protobuf:"bytes,4,opt,name=createdBy,proto3,oneof" json:"createdBy,omitempty"`
 	AffectedUsers []uint32               `protobuf:"varint,5,rep,packed,name=affectedUsers,proto3" json:"affectedUsers,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -160,8 +160,8 @@ func (x *UpdateIncidentEvent) GetDetails() string {
 }
 
 func (x *UpdateIncidentEvent) GetCreatedBy() string {
-	if x != nil {
-		return x.CreatedBy
+	if x != nil && x.CreatedBy != nil {
+		return *x.CreatedBy
 	}
 	return ""
 }
@@ -177,25 +177,29 @@ var File_incidentevent_proto protoreflect.FileDescriptor
 
 const file_incidentevent_proto_rawDesc = "" +
 	"\n" +
-	"\x13incidentevent.proto\"\xb6\x01\n" +
+	"\x13incidentevent.proto\"\xc9\x01\n" +
 	"\x13CreateIncidentEvent\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\rH\x00R\x02id\x88\x01\x01\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12\x1d\n" +
-	"\adetails\x18\x03 \x01(\tH\x01R\adetails\x88\x01\x01\x12\x1c\n" +
-	"\tcreatedBy\x18\x04 \x01(\tR\tcreatedBy\x12$\n" +
+	"\adetails\x18\x03 \x01(\tH\x01R\adetails\x88\x01\x01\x12!\n" +
+	"\tcreatedBy\x18\x04 \x01(\tH\x02R\tcreatedBy\x88\x01\x01\x12$\n" +
 	"\raffectedUsers\x18\x05 \x03(\rR\raffectedUsersB\x05\n" +
 	"\x03_idB\n" +
 	"\n" +
-	"\b_details\"\xb9\x01\n" +
+	"\b_detailsB\f\n" +
+	"\n" +
+	"_createdBy\"\xcc\x01\n" +
 	"\x13UpdateIncidentEvent\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x19\n" +
 	"\x05title\x18\x02 \x01(\tH\x00R\x05title\x88\x01\x01\x12\x1d\n" +
-	"\adetails\x18\x03 \x01(\tH\x01R\adetails\x88\x01\x01\x12\x1c\n" +
-	"\tcreatedBy\x18\x04 \x01(\tR\tcreatedBy\x12$\n" +
+	"\adetails\x18\x03 \x01(\tH\x01R\adetails\x88\x01\x01\x12!\n" +
+	"\tcreatedBy\x18\x04 \x01(\tH\x02R\tcreatedBy\x88\x01\x01\x12$\n" +
 	"\raffectedUsers\x18\x05 \x03(\rR\raffectedUsersB\b\n" +
 	"\x06_titleB\n" +
 	"\n" +
-	"\b_detailsB\x11Z\x0f../emradiprotosb\x06proto3"
+	"\b_detailsB\f\n" +
+	"\n" +
+	"_createdByB\x11Z\x0f../emradiprotosb\x06proto3"
 
 var (
 	file_incidentevent_proto_rawDescOnce sync.Once

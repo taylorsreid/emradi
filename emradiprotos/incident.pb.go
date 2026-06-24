@@ -28,7 +28,7 @@ type CreateIncident struct {
 	Latitude      *float64               `protobuf:"fixed64,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
 	Longitude     *float64               `protobuf:"fixed64,4,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
 	Address       *string                `protobuf:"bytes,5,opt,name=address,proto3,oneof" json:"address,omitempty"`
-	CreatedBy     string                 `protobuf:"bytes,6,opt,name=createdBy,proto3" json:"createdBy,omitempty"`
+	CreatedBy     *string                `protobuf:"bytes,6,opt,name=createdBy,proto3,oneof" json:"createdBy,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -99,8 +99,8 @@ func (x *CreateIncident) GetAddress() string {
 }
 
 func (x *CreateIncident) GetCreatedBy() string {
-	if x != nil {
-		return x.CreatedBy
+	if x != nil && x.CreatedBy != nil {
+		return *x.CreatedBy
 	}
 	return ""
 }
@@ -193,20 +193,22 @@ var File_incident_proto protoreflect.FileDescriptor
 
 const file_incident_proto_rawDesc = "" +
 	"\n" +
-	"\x0eincident.proto\"\xf8\x01\n" +
+	"\x0eincident.proto\"\x8b\x02\n" +
 	"\x0eCreateIncident\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\rH\x00R\x02id\x88\x01\x01\x12\"\n" +
 	"\fincidentType\x18\x02 \x01(\tR\fincidentType\x12\x1f\n" +
 	"\blatitude\x18\x03 \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
 	"\tlongitude\x18\x04 \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1d\n" +
-	"\aaddress\x18\x05 \x01(\tH\x03R\aaddress\x88\x01\x01\x12\x1c\n" +
-	"\tcreatedBy\x18\x06 \x01(\tR\tcreatedByB\x05\n" +
+	"\aaddress\x18\x05 \x01(\tH\x03R\aaddress\x88\x01\x01\x12!\n" +
+	"\tcreatedBy\x18\x06 \x01(\tH\x04R\tcreatedBy\x88\x01\x01B\x05\n" +
 	"\x03_idB\v\n" +
 	"\t_latitudeB\f\n" +
 	"\n" +
 	"_longitudeB\n" +
 	"\n" +
-	"\b_address\"\x92\x02\n" +
+	"\b_addressB\f\n" +
+	"\n" +
+	"_createdBy\"\x92\x02\n" +
 	"\x0eUpdateIncident\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12'\n" +
 	"\fincidentType\x18\x02 \x01(\tH\x00R\fincidentType\x88\x01\x01\x12\x1f\n" +
