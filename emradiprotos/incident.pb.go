@@ -25,10 +25,11 @@ type CreateIncident struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            *uint32                `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
 	IncidentType  string                 `protobuf:"bytes,2,opt,name=incidentType,proto3" json:"incidentType,omitempty"`
-	Latitude      *float64               `protobuf:"fixed64,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
-	Longitude     *float64               `protobuf:"fixed64,4,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
-	Address       *string                `protobuf:"bytes,5,opt,name=address,proto3,oneof" json:"address,omitempty"`
-	CreatedBy     *string                `protobuf:"bytes,6,opt,name=createdBy,proto3,oneof" json:"createdBy,omitempty"`
+	Priority      uint32                 `protobuf:"varint,3,opt,name=priority,proto3" json:"priority,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,4,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,5,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	Address       *string                `protobuf:"bytes,6,opt,name=address,proto3,oneof" json:"address,omitempty"`
+	CreatedBy     *string                `protobuf:"bytes,7,opt,name=createdBy,proto3,oneof" json:"createdBy,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -77,6 +78,13 @@ func (x *CreateIncident) GetIncidentType() string {
 	return ""
 }
 
+func (x *CreateIncident) GetPriority() uint32 {
+	if x != nil {
+		return x.Priority
+	}
+	return 0
+}
+
 func (x *CreateIncident) GetLatitude() float64 {
 	if x != nil && x.Latitude != nil {
 		return *x.Latitude
@@ -109,10 +117,10 @@ type UpdateIncident struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            uint32                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	IncidentType  *string                `protobuf:"bytes,2,opt,name=incidentType,proto3,oneof" json:"incidentType,omitempty"`
-	Latitude      *float64               `protobuf:"fixed64,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
-	Longitude     *float64               `protobuf:"fixed64,4,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
-	Address       *string                `protobuf:"bytes,5,opt,name=address,proto3,oneof" json:"address,omitempty"`
-	ClosedAt      *uint64                `protobuf:"varint,6,opt,name=closedAt,proto3,oneof" json:"closedAt,omitempty"`
+	Priority      *uint32                `protobuf:"varint,3,opt,name=priority,proto3,oneof" json:"priority,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,4,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,5,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	Address       *string                `protobuf:"bytes,6,opt,name=address,proto3,oneof" json:"address,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -161,6 +169,13 @@ func (x *UpdateIncident) GetIncidentType() string {
 	return ""
 }
 
+func (x *UpdateIncident) GetPriority() uint32 {
+	if x != nil && x.Priority != nil {
+		return *x.Priority
+	}
+	return 0
+}
+
 func (x *UpdateIncident) GetLatitude() float64 {
 	if x != nil && x.Latitude != nil {
 		return *x.Latitude
@@ -182,25 +197,19 @@ func (x *UpdateIncident) GetAddress() string {
 	return ""
 }
 
-func (x *UpdateIncident) GetClosedAt() uint64 {
-	if x != nil && x.ClosedAt != nil {
-		return *x.ClosedAt
-	}
-	return 0
-}
-
 var File_incident_proto protoreflect.FileDescriptor
 
 const file_incident_proto_rawDesc = "" +
 	"\n" +
-	"\x0eincident.proto\"\x8b\x02\n" +
+	"\x0eincident.proto\"\xa7\x02\n" +
 	"\x0eCreateIncident\x12\x13\n" +
 	"\x02id\x18\x01 \x01(\rH\x00R\x02id\x88\x01\x01\x12\"\n" +
-	"\fincidentType\x18\x02 \x01(\tR\fincidentType\x12\x1f\n" +
-	"\blatitude\x18\x03 \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
-	"\tlongitude\x18\x04 \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1d\n" +
-	"\aaddress\x18\x05 \x01(\tH\x03R\aaddress\x88\x01\x01\x12!\n" +
-	"\tcreatedBy\x18\x06 \x01(\tH\x04R\tcreatedBy\x88\x01\x01B\x05\n" +
+	"\fincidentType\x18\x02 \x01(\tR\fincidentType\x12\x1a\n" +
+	"\bpriority\x18\x03 \x01(\rR\bpriority\x12\x1f\n" +
+	"\blatitude\x18\x04 \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\x05 \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1d\n" +
+	"\aaddress\x18\x06 \x01(\tH\x03R\aaddress\x88\x01\x01\x12!\n" +
+	"\tcreatedBy\x18\a \x01(\tH\x04R\tcreatedBy\x88\x01\x01B\x05\n" +
 	"\x03_idB\v\n" +
 	"\t_latitudeB\f\n" +
 	"\n" +
@@ -212,17 +221,17 @@ const file_incident_proto_rawDesc = "" +
 	"\x0eUpdateIncident\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12'\n" +
 	"\fincidentType\x18\x02 \x01(\tH\x00R\fincidentType\x88\x01\x01\x12\x1f\n" +
-	"\blatitude\x18\x03 \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
-	"\tlongitude\x18\x04 \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1d\n" +
-	"\aaddress\x18\x05 \x01(\tH\x03R\aaddress\x88\x01\x01\x12\x1f\n" +
-	"\bclosedAt\x18\x06 \x01(\x04H\x04R\bclosedAt\x88\x01\x01B\x0f\n" +
+	"\bpriority\x18\x03 \x01(\rH\x01R\bpriority\x88\x01\x01\x12\x1f\n" +
+	"\blatitude\x18\x04 \x01(\x01H\x02R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\x05 \x01(\x01H\x03R\tlongitude\x88\x01\x01\x12\x1d\n" +
+	"\aaddress\x18\x06 \x01(\tH\x04R\aaddress\x88\x01\x01B\x0f\n" +
 	"\r_incidentTypeB\v\n" +
+	"\t_priorityB\v\n" +
 	"\t_latitudeB\f\n" +
 	"\n" +
 	"_longitudeB\n" +
 	"\n" +
-	"\b_addressB\v\n" +
-	"\t_closedAtB\x11Z\x0f../emradiprotosb\x06proto3"
+	"\b_addressB\x11Z\x0f../emradiprotosb\x06proto3"
 
 var (
 	file_incident_proto_rawDescOnce sync.Once

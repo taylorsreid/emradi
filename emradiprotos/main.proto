@@ -21,15 +21,16 @@ message Response {
 }
 
 message Payload {
+    uint32 timestamp = 1;
     oneof payload {
-        Response response = 1;
-        CreateUser createUser = 2;
-        CreateIncident createIncident = 3;
-        CreateIncidentEvent createIncidentEvent = 4;
-        Read read = 5;
-        UpdateUser updateUser = 6;
-        UpdateIncident updateIncident = 7;
-        UpdateIncidentEvent updateIncidentEvent = 8;
+        Response response = 2;
+        CreateUser createUser = 3;
+        CreateIncident createIncident = 4;
+        CreateIncidentEvent createIncidentEvent = 5;
+        Read read = 6;
+        UpdateUser updateUser = 7;
+        UpdateIncident updateIncident = 8;
+        UpdateIncidentEvent updateIncidentEvent = 9;
         // no delete yet, but we can add it later if needed
     }
 }

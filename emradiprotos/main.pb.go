@@ -142,7 +142,8 @@ func (x *Response) GetPayload() string {
 }
 
 type Payload struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Timestamp uint32                 `protobuf:"varint,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	// Types that are valid to be assigned to Payload:
 	//
 	//	*Payload_Response
@@ -186,6 +187,13 @@ func (x *Payload) ProtoReflect() protoreflect.Message {
 // Deprecated: Use Payload.ProtoReflect.Descriptor instead.
 func (*Payload) Descriptor() ([]byte, []int) {
 	return file_main_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Payload) GetTimestamp() uint32 {
+	if x != nil {
+		return x.Timestamp
+	}
+	return 0
 }
 
 func (x *Payload) GetPayload() isPayload_Payload {
@@ -272,35 +280,35 @@ type isPayload_Payload interface {
 }
 
 type Payload_Response struct {
-	Response *Response `protobuf:"bytes,1,opt,name=response,proto3,oneof"`
+	Response *Response `protobuf:"bytes,2,opt,name=response,proto3,oneof"`
 }
 
 type Payload_CreateUser struct {
-	CreateUser *CreateUser `protobuf:"bytes,2,opt,name=createUser,proto3,oneof"`
+	CreateUser *CreateUser `protobuf:"bytes,3,opt,name=createUser,proto3,oneof"`
 }
 
 type Payload_CreateIncident struct {
-	CreateIncident *CreateIncident `protobuf:"bytes,3,opt,name=createIncident,proto3,oneof"`
+	CreateIncident *CreateIncident `protobuf:"bytes,4,opt,name=createIncident,proto3,oneof"`
 }
 
 type Payload_CreateIncidentEvent struct {
-	CreateIncidentEvent *CreateIncidentEvent `protobuf:"bytes,4,opt,name=createIncidentEvent,proto3,oneof"`
+	CreateIncidentEvent *CreateIncidentEvent `protobuf:"bytes,5,opt,name=createIncidentEvent,proto3,oneof"`
 }
 
 type Payload_Read struct {
-	Read *Read `protobuf:"bytes,5,opt,name=read,proto3,oneof"`
+	Read *Read `protobuf:"bytes,6,opt,name=read,proto3,oneof"`
 }
 
 type Payload_UpdateUser struct {
-	UpdateUser *UpdateUser `protobuf:"bytes,6,opt,name=updateUser,proto3,oneof"`
+	UpdateUser *UpdateUser `protobuf:"bytes,7,opt,name=updateUser,proto3,oneof"`
 }
 
 type Payload_UpdateIncident struct {
-	UpdateIncident *UpdateIncident `protobuf:"bytes,7,opt,name=updateIncident,proto3,oneof"`
+	UpdateIncident *UpdateIncident `protobuf:"bytes,8,opt,name=updateIncident,proto3,oneof"`
 }
 
 type Payload_UpdateIncidentEvent struct {
-	UpdateIncidentEvent *UpdateIncidentEvent `protobuf:"bytes,8,opt,name=updateIncidentEvent,proto3,oneof"` // no delete yet, but we can add it later if needed
+	UpdateIncidentEvent *UpdateIncidentEvent `protobuf:"bytes,9,opt,name=updateIncidentEvent,proto3,oneof"` // no delete yet, but we can add it later if needed
 }
 
 func (*Payload_Response) isPayload_Payload() {}
@@ -336,20 +344,21 @@ const file_main_proto_rawDesc = "" +
 	"\x06status\x18\x01 \x01(\rR\x06status\x12\x1d\n" +
 	"\apayload\x18\x02 \x01(\tH\x00R\apayload\x88\x01\x01B\n" +
 	"\n" +
-	"\b_payload\"\xc2\x03\n" +
-	"\aPayload\x12'\n" +
-	"\bresponse\x18\x01 \x01(\v2\t.ResponseH\x00R\bresponse\x12-\n" +
+	"\b_payload\"\xe0\x03\n" +
+	"\aPayload\x12\x1c\n" +
+	"\ttimestamp\x18\x01 \x01(\rR\ttimestamp\x12'\n" +
+	"\bresponse\x18\x02 \x01(\v2\t.ResponseH\x00R\bresponse\x12-\n" +
 	"\n" +
-	"createUser\x18\x02 \x01(\v2\v.CreateUserH\x00R\n" +
+	"createUser\x18\x03 \x01(\v2\v.CreateUserH\x00R\n" +
 	"createUser\x129\n" +
-	"\x0ecreateIncident\x18\x03 \x01(\v2\x0f.CreateIncidentH\x00R\x0ecreateIncident\x12H\n" +
-	"\x13createIncidentEvent\x18\x04 \x01(\v2\x14.CreateIncidentEventH\x00R\x13createIncidentEvent\x12\x1b\n" +
-	"\x04read\x18\x05 \x01(\v2\x05.ReadH\x00R\x04read\x12-\n" +
+	"\x0ecreateIncident\x18\x04 \x01(\v2\x0f.CreateIncidentH\x00R\x0ecreateIncident\x12H\n" +
+	"\x13createIncidentEvent\x18\x05 \x01(\v2\x14.CreateIncidentEventH\x00R\x13createIncidentEvent\x12\x1b\n" +
+	"\x04read\x18\x06 \x01(\v2\x05.ReadH\x00R\x04read\x12-\n" +
 	"\n" +
-	"updateUser\x18\x06 \x01(\v2\v.UpdateUserH\x00R\n" +
+	"updateUser\x18\a \x01(\v2\v.UpdateUserH\x00R\n" +
 	"updateUser\x129\n" +
-	"\x0eupdateIncident\x18\a \x01(\v2\x0f.UpdateIncidentH\x00R\x0eupdateIncident\x12H\n" +
-	"\x13updateIncidentEvent\x18\b \x01(\v2\x14.UpdateIncidentEventH\x00R\x13updateIncidentEventB\t\n" +
+	"\x0eupdateIncident\x18\b \x01(\v2\x0f.UpdateIncidentH\x00R\x0eupdateIncident\x12H\n" +
+	"\x13updateIncidentEvent\x18\t \x01(\v2\x14.UpdateIncidentEventH\x00R\x13updateIncidentEventB\t\n" +
 	"\apayloadB\x11Z\x0f../emradiprotosb\x06proto3"
 
 var (

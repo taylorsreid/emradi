@@ -6,17 +6,18 @@ option go_package = "../emradiprotos";
 message CreateIncident {
     optional uint32 id = 1;
     string incidentType = 2;
-    optional double latitude = 3;
-    optional double longitude = 4;
-    optional string address = 5;
-    optional string createdBy = 6;
+    uint32 priority = 3;
+    optional double latitude = 4;
+    optional double longitude = 5;
+    optional string address = 6;
+    optional string createdBy = 7;
 }
 
 message UpdateIncident {
     uint32 id = 1;
     optional string incidentType = 2;
-    optional double latitude = 3;
-    optional double longitude = 4;
-    optional string address = 5;
-    optional uint64 closedAt = 6;
+    optional uint32 priority = 3;
+    optional double latitude = 4;
+    optional double longitude = 5;
+    optional string address = 6;
 }
