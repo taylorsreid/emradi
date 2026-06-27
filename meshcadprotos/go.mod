@@ -1,4 +1,4 @@
-module github.com/taylorsreid/emradi/emradiprotos
+module github.com/taylorsreid/meshcad/meshcadprotos
 
 go 1.26.0
 

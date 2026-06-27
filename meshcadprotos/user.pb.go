@@ -4,7 +4,7 @@
 // 	protoc        v7.35.1
 // source: user.proto
 
-package emradiprotos
+package meshcadprotos
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -188,7 +188,7 @@ const file_user_proto_rawDesc = "" +
 	"\t_passwordB\a\n" +
 	"\x05_nameB\t\n" +
 	"\a_statusB\x0e\n" +
-	"\f_meshAddressB\x11Z\x0f../emradiprotosb\x06proto3"
+	"\f_meshAddressB\x12Z\x10../meshcadprotosb\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once

@@ -4,7 +4,7 @@
 // 	protoc        v7.35.1
 // source: incident.proto
 
-package emradiprotos
+package meshcadprotos
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -231,7 +231,7 @@ const file_incident_proto_rawDesc = "" +
 	"\n" +
 	"_longitudeB\n" +
 	"\n" +
-	"\b_addressB\x11Z\x0f../emradiprotosb\x06proto3"
+	"\b_addressB\x12Z\x10../meshcadprotosb\x06proto3"
 
 var (
 	file_incident_proto_rawDescOnce sync.Once

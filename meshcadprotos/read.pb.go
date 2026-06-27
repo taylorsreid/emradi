@@ -4,7 +4,7 @@
 // 	protoc        v7.35.1
 // source: read.proto
 
-package emradiprotos
+package meshcadprotos
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -122,7 +122,7 @@ const file_read_proto_rawDesc = "" +
 	"\x06offset\x18\x06 \x01(\rH\x02R\x06offset\x88\x01\x01B\a\n" +
 	"\x05_sortB\b\n" +
 	"\x06_limitB\t\n" +
-	"\a_offsetB\x11Z\x0f../emradiprotosb\x06proto3"
+	"\a_offsetB\x12Z\x10../meshcadprotosb\x06proto3"
 
 var (
 	file_read_proto_rawDescOnce sync.Once

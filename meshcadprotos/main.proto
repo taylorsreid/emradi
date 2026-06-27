@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // Go package name
-option go_package = "../emradiprotos";
+option go_package = "../meshcadprotos";
 
 import "user.proto";
 import "incident.proto";

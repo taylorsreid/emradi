@@ -5,6 +5,23 @@ import (
 	m "github.com/pocketbase/pocketbase/migrations"
 )
 
+func useNumericId(collection *core.Collection) error {
+	err := collection.Fields.AddMarshaledJSONAt(0, []byte(`{
+			"autogeneratePattern": "[0-999999]",
+			"hidden": false,
+			"max": 15,
+			"min": 1,
+			"name": "id",
+			"pattern": "^[a-z0-9]+$",
+			"presentable": false,
+			"primaryKey": true,
+			"required": true,
+			"system": true,
+			"type": "text"
+		}`))
+	return err
+}
+
 func init() {
 	m.Register(func(app core.App) error {
 
@@ -38,7 +55,11 @@ func init() {
 		)
 		radios.AddIndex("radiosNameUnique", true, "name", "")
 		radios.AddIndex("radiosSelectedUnique", true, "selected", "")
-		err := app.Save(radios)
+		err := useNumericId(radios)
+		if err != nil {
+			return err
+		}
+		err = app.Save(radios)
 		if err != nil {
 			return err
 		}
@@ -56,33 +77,52 @@ func init() {
 			},
 		)
 		roles.AddIndex("roleNameUnique", true, "name", "")
+		err = useNumericId(roles)
+		if err != nil {
+			return err
+		}
 		err = app.Save(roles)
 		if err != nil {
 			return err
 		}
+
 		record := core.NewRecord(roles)
 		record.Set("name", "Dispatcher")
-		app.Save(record)
+		err = app.Save(record)
+		if err != nil {
+			return err
+		}
 
 		// user statuses
-		// userStatuses := core.NewBaseCollection("userStatuses")
-		// userStatuses.Fields.Add(
-		// 	&core.TextField{
-		// 		Name:     "name",
-		// 		Required: true,
-		// 	},
-		// )
-		// userStatuses.AddIndex("userStatusesNameUnique", true, "name", "")
-		// err = app.Save(userStatuses)
-		// if err != nil {
-		// 	return err
-		// }
-		// record = core.NewRecord(userStatuses)
-		// record.Set("name", "available")
-		// app.Save(record)
-		// record = core.NewRecord(userStatuses)
-		// record.Set("name", "offline")
-		// app.Save(record)
+		userStatuses := core.NewBaseCollection("userStatuses")
+		userStatuses.Fields.Add(
+			&core.TextField{
+				Name:     "name",
+				Required: true,
+			},
+		)
+		userStatuses.AddIndex("userStatusesNameUnique", true, "name", "")
+		err = useNumericId(userStatuses)
+		if err != nil {
+			return err
+		}
+		err = app.Save(userStatuses)
+		if err != nil {
+			return err
+		}
+
+		record = core.NewRecord(userStatuses)
+		record.Set("name", "available")
+		err = app.Save(record)
+		if err != nil {
+			return err
+		}
+		record = core.NewRecord(userStatuses)
+		record.Set("name", "offline")
+		err = app.Save(record)
+		if err != nil {
+			return err
+		}
 
 		// users
 		users, err := app.FindCollectionByNameOrId("users")
@@ -98,20 +138,24 @@ func init() {
 				MaxSelect:     999,
 				Required:      true,
 			},
-			&core.TextField{
-				Name: "status",
+			&core.RelationField{
+				Name:         "status",
+				CollectionId: userStatuses.Id,
+				MinSelect:    1,
+				MaxSelect:    1,
+				Required:     true,
 			},
-			// &core.SelectField{
-			// 	Name:      "contactMethod",
-			// 	Values:    []string{"ip", "mesh"},
-			// 	MaxSelect: 1,
-			// 	Required:  true,
-			// },
 			&core.NumberField{
-				Name: "meshAddress",
+				Name:     "meshAddress",
+				Required: false,
+				OnlyInt:  true,
 			},
 		)
-		users.AddIndex("usersmeshAddressUnique", true, "meshAddress", "")
+		users.AddIndex("usersmeshAddressUnique", true, "meshAddress", "meshAddress != 0")
+		err = useNumericId(users)
+		if err != nil {
+			return err
+		}
 		err = app.Save(users)
 		if err != nil {
 			return err
@@ -138,6 +182,10 @@ func init() {
 			},
 		)
 		incidentTypes.AddIndex("incidentTypeNameUnique", true, "name", "")
+		err = useNumericId(incidentTypes)
+		if err != nil {
+			return err
+		}
 		err = app.Save(incidentTypes)
 		if err != nil {
 			return err
@@ -147,83 +195,12 @@ func init() {
 		incidentEvents := core.NewBaseCollection("incidentEvents")
 		incidentEvents.Fields.Add(
 			&core.TextField{
-				Name:     "description",
+				Name:     "title",
 				Required: true,
 			},
 			&core.TextField{
-				Name: "notes",
-			},
-			&core.AutodateField{
-				Name:     "created",
-				OnCreate: true,
-			},
-			&core.RelationField{
-				Name:         "createdBy",
-				CollectionId: users.Id,
-				MinSelect:    1,
-				MaxSelect:    1,
-				Required:     true,
-			},
-			&core.RelationField{
-				Name:         "affectedUser",
-				CollectionId: users.Id,
-				MinSelect:    1,
-				MaxSelect:    1,
-			},
-		)
-		err = app.Save(incidentEvents)
-		if err != nil {
-			return err
-		}
-
-		// suggested incident events
-		suggestedIncidentEvents := core.NewBaseCollection("suggestedIncidentEvents")
-		suggestedIncidentEvents.Fields.Add(
-			&core.TextField{
-				Name:     "description",
-				Required: true,
-			},
-		)
-		suggestedIncidentEvents.AddIndex("suggestedIncidentEventsDescriptionUnique", true, "description", "")
-		err = app.Save(suggestedIncidentEvents)
-		if err != nil {
-			return err
-		}
-
-		// insert a few common example suggested incident events
-		record = core.NewRecord(suggestedIncidentEvents)
-		record.Set("description", "dispatched")
-		err = app.Save(record)
-
-		record = core.NewRecord(suggestedIncidentEvents)
-		record.Set("description", "acknowledged")
-		app.Save(record)
-
-		record = core.NewRecord(suggestedIncidentEvents)
-		record.Set("description", "arrived")
-		app.Save(record)
-
-		// record = core.NewRecord(suggestedIncidentEvents)
-		// record.Set("description", "information")
-		// app.Save(record)
-
-		record = core.NewRecord(suggestedIncidentEvents)
-		record.Set("description", "cleared")
-		app.Save(record)
-
-		// incidents
-		incidents := core.NewBaseCollection("incidents")
-		incidents.Fields.Add(
-			&core.GeoPointField{
-				Name:     "location",
-				Required: true,
-			},
-			&core.RelationField{
-				Name:         "incidentType",
-				CollectionId: incidentTypes.Id,
-				MinSelect:    1,
-				MaxSelect:    1,
-				Required:     true,
+				Name:     "details",
+				Required: false,
 			},
 			&core.RelationField{
 				Name:         "createdBy",
@@ -233,16 +210,129 @@ func init() {
 				Required:     true,
 			},
 			&core.DateField{
-				Name: "closedAt",
-				Min:  incidents.Created,
+				Name:     "sentAt",
+				Required: true,
+			},
+			&core.AutodateField{
+				Name:     "createdAt",
+				OnCreate: true,
+			},
+			&core.RelationField{
+				Name:         "affectedUser",
+				CollectionId: users.Id,
+				MinSelect:    1,
+				MaxSelect:    1,
+			},
+		)
+		err = useNumericId(incidentEvents)
+		if err != nil {
+			return err
+		}
+		err = app.Save(incidentEvents)
+		if err != nil {
+			return err
+		}
+
+		// suggested incident events
+		suggestedIncidentEvents := core.NewBaseCollection("suggestedIncidentEvents")
+		suggestedIncidentEvents.Fields.Add(
+			&core.TextField{
+				Name:     "title",
+				Required: true,
+			},
+		)
+		suggestedIncidentEvents.AddIndex("suggestedIncidentEventsTitleUnique", true, "title", "")
+		err = useNumericId(suggestedIncidentEvents)
+		if err != nil {
+			return err
+		}
+		err = app.Save(suggestedIncidentEvents)
+		if err != nil {
+			return err
+		}
+
+		// insert a few common example suggested incident events
+		record = core.NewRecord(suggestedIncidentEvents)
+		record.Set("title", "dispatched")
+		err = app.Save(record)
+		if err != nil {
+			return err
+		}
+
+		record = core.NewRecord(suggestedIncidentEvents)
+		record.Set("title", "acknowledged")
+		err = app.Save(record)
+		if err != nil {
+			return err
+		}
+
+		record = core.NewRecord(suggestedIncidentEvents)
+		record.Set("title", "arrived")
+		err = app.Save(record)
+		if err != nil {
+			return err
+		}
+
+		record = core.NewRecord(suggestedIncidentEvents)
+		record.Set("title", "information")
+		app.Save(record)
+
+		record = core.NewRecord(suggestedIncidentEvents)
+		record.Set("description", "cleared")
+		err = app.Save(record)
+		if err != nil {
+			return err
+		}
+
+		// incidents
+		incidents := core.NewBaseCollection("incidents")
+		incidents.Fields.Add(
+			&core.RelationField{
+				Name:         "incidentType",
+				CollectionId: incidentTypes.Id,
+				MinSelect:    1,
+				MaxSelect:    1,
+				Required:     true,
+			},
+			&core.GeoPointField{
+				Name:     "coordinates",
+				Required: false,
+			},
+			&core.TextField{
+				Name:     "address",
+				Required: false,
+			},
+			&core.RelationField{
+				Name:         "createdBy",
+				CollectionId: users.Id,
+				MinSelect:    1,
+				MaxSelect:    1,
+				Required:     true,
+			},
+			&core.DateField{
+				Name:     "sentAt",
+				Required: false,
+			},
+			&core.AutodateField{
+				Name:     "createdAt",
+				OnCreate: true,
+			},
+			&core.DateField{
+				Name:     "closedAt",
+				Min:      incidents.Created,
+				Required: false,
 			},
 			&core.RelationField{
 				Name:         "events",
 				CollectionId: incidentEvents.Id,
 				MinSelect:    0,
-				MaxSelect:    9_999,
+				MaxSelect:    999_999,
 			},
 		)
+		err = useNumericId(incidents)
+		if err != nil {
+			return err
+		}
 		err = app.Save(incidents)
 		if err != nil {
 			return err

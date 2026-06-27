@@ -4,7 +4,7 @@
 // 	protoc        v7.35.1
 // source: incidentevent.proto
 
-package emradiprotos
+package meshcadprotos
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -201,7 +201,7 @@ const file_incidentevent_proto_rawDesc = "" +
 	"\b_detailsB\f\n" +
 	"\n" +
 	"_createdByB\x0f\n" +
-	"\r_affectedUserB\x11Z\x0f../emradiprotosb\x06proto3"
+	"\r_affectedUserB\x12Z\x10../meshcadprotosb\x06proto3"
 
 var (
 	file_incidentevent_proto_rawDescOnce sync.Once

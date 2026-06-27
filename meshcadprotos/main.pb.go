@@ -4,7 +4,7 @@
 // 	protoc        v7.35.1
 // source: main.proto
 
-package emradiprotos
+package meshcadprotos
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -359,7 +359,7 @@ const file_main_proto_rawDesc = "" +
 	"updateUser\x129\n" +
 	"\x0eupdateIncident\x18\b \x01(\v2\x0f.UpdateIncidentH\x00R\x0eupdateIncident\x12H\n" +
 	"\x13updateIncidentEvent\x18\t \x01(\v2\x14.UpdateIncidentEventH\x00R\x13updateIncidentEventB\t\n" +
-	"\apayloadB\x11Z\x0f../emradiprotosb\x06proto3"
+	"\apayloadB\x12Z\x10../meshcadprotosb\x06proto3"
 
 var (
 	file_main_proto_rawDescOnce sync.Once
